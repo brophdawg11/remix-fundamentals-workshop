@@ -1,4 +1,4 @@
-# 0 - Shell
+# Exercise 0 - Shell
 
 This shell contains the _simplest possible_ Remix application, consisting of a single `app/root.jsx` file (plus a `package.json` for dependencies).
 

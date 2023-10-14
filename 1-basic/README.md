@@ -1,4 +1,4 @@
-# 1 - Basic
+# Exercise 1 - Basic
 
 This example starts with a very basic Remix application consisting of a single application file (`app/root.tsx`). In order to review the basic aspects of Remix, we're going to build that into a small app with a header/footer layout and a few pages we can navigate between.
 
