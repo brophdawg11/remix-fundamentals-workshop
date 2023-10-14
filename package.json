@@ -1,7 +1,10 @@
 {
   "name": "remix-fundamentals-workshop",
   "private": true,
-  "scripts": {},
+  "scripts": {
+    "build": "npm run build --workspaces",
+    "reset": "rm -rf node_modules && rm -f package-lock.json && npm i"
+  },
   "author": "Matt Brophy <matt@brophy.org>",
   "workspaces": [
     "./*",
@@ -9,6 +12,6 @@
     "!./old"
   ],
   "dependencies": {
-    "prettier-plugin-tailwindcss": "0.5.6"
+    "prettier-plugin-tailwindcss": "0.4"
   }
 }

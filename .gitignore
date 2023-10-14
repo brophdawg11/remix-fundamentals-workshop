@@ -1,7 +1,6 @@
-/*/build
-/*/public/build
+build/
 .cache
 .DS_Store
 .env
-node_modules
+node_modules/
 notes.md
