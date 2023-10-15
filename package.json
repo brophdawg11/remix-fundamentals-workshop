@@ -3,7 +3,8 @@
   "private": true,
   "scripts": {
     "build": "npm run build --workspaces",
-    "reset": "rm -rf node_modules && rm -f package-lock.json && npm i"
+    "clean": "git clean -dfX",
+    "reset": "npm run clean && rm -f package-lock.json && npm i"
   },
   "author": "Matt Brophy <matt@brophy.org>",
   "workspaces": [

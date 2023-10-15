@@ -51,4 +51,4 @@ Each topic will have a list of instructions, links, and tips for completing the 
 
 The instructions and code is light _by design_! The goal of the workshop is not just to simply give you the answers, but to get you comfortable using the Remix and MDN docs to help you figure out the path forward (you should get much better recall in this manner 😉).
 
-If you get stuck, there is a working version of the `app/` dir in `/final` tht you can peek at. I would not recommend recursively copying that into app since you may end up losing any other progress you've already made!
+If you get stuck, there is a working version of each exercise in a `-final` workspace, so you can run that to see the final state (`npm run dev -w 1-basic-final`) or peek at the code if you need a hint.

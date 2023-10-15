@@ -6,7 +6,9 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useNavigation,
 } from "@remix-run/react";
+import * as React from "react";
 
 import styles from "./styles/tailwind.css";
 
@@ -30,6 +32,7 @@ export default function App() {
       <body>
         <h1 className="mt-4 text-center text-3xl">The Remix Shop</h1>
         <Outlet />
+        <DelayedSpinner />
         <ScrollRestoration />
         <Scripts />
         <LiveReload />
@@ -38,7 +41,26 @@ export default function App() {
   );
 }
 
-// 💡 You can show this pre-constructed spinner component during navigations
+function DelayedSpinner() {
+  let navigation = useNavigation();
+  let [showSpinner, setShowSpinner] = React.useState(false);
+  let idRef = React.useRef(0);
+
+  React.useEffect(() => {
+    let id: number;
+    if (navigation.state !== "idle") {
+      id = setTimeout(() => setShowSpinner(true), 250) as unknown as number;
+      idRef.current = id;
+    } else {
+      clearTimeout(idRef.current);
+      setShowSpinner(false);
+    }
+    return () => clearTimeout(id);
+  }, [navigation.state]);
+
+  return showSpinner ? <FullPageSpinner /> : null;
+}
+
 function FullPageSpinner() {
   return (
     <div className="absolute left-0 top-0 h-full w-full items-center bg-white opacity-70">
