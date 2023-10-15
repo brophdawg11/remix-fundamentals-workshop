@@ -22,6 +22,9 @@ module.exports = {
 
   // Base config
   extends: ["eslint:recommended"],
+  rules: {
+    "prefer-const": "off",
+  },
 
   overrides: [
     // React
@@ -31,6 +34,7 @@ module.exports = {
       extends: [
         "plugin:react/recommended",
         "plugin:react/jsx-runtime",
+        "plugin:react-hooks/recommended",
         "plugin:jsx-a11y/recommended",
         "prettier",
       ],
@@ -49,6 +53,7 @@ module.exports = {
           "warn",
           { validStrategies: ["ternary"] },
         ],
+        "prefer-const": "off",
       },
     },
 
@@ -84,6 +89,7 @@ module.exports = {
             "newlines-between": "always",
           },
         ],
+        "prefer-const": "off",
       },
     },
 

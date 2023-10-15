@@ -1,4 +1,4 @@
-import fakeProductsResponse from "./data/products";
+import fakeProductsResponse from "./products";
 
 export async function fakeGetProducts(
   page?: number,
@@ -9,12 +9,15 @@ export async function fakeGetProducts(
     return { ...p.node, variants: p.node.variants.edges.map((v) => v.node) };
   });
 
-  if (sort) {
-    products = sortProducts(products, sort === "desc");
+  if (sort === "Descending") {
+    products = sortProducts(products, true);
+  } else if (sort === "Ascending") {
+    products = sortProducts(products, false);
   }
 
   if (page && pageSize && page > 0 && pageSize > 0) {
     let start = (page - 1) * pageSize;
+    // Return paginated products
     return {
       products: products.slice(start, start + pageSize),
       numPages: Math.ceil(products.length / pageSize),
@@ -22,7 +25,14 @@ export async function fakeGetProducts(
       hasNextPage: start + pageSize < products.length,
     };
   }
-  return { products, hasPrevPage: false, hasNextPage: false };
+
+  // Not using pagination, return all products
+  return {
+    products,
+    numPages: 1,
+    hasPrevPage: false,
+    hasNextPage: false,
+  };
 }
 
 export type Product = Awaited<

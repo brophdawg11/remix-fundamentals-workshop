@@ -1,8 +1,8 @@
-import * as React from "react";
 import { json, type LoaderFunctionArgs } from "@remix-run/node";
-import { Link, useLoaderData, useNavigate } from "@remix-run/react";
+import { Form, Link, useLoaderData, useSubmit } from "@remix-run/react";
+import * as React from "react";
 
-import { type Product, fakeGetProducts } from "../data";
+import { type Product, fakeGetProducts } from "../data/api";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   let searchParams = new URL(request.url).searchParams;
@@ -15,7 +15,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
       : "All";
 
   let isPaginated = pageSize !== "All";
-  let sort = searchParams.get("sort");
+  let sort = searchParams.get("sort") || "None";
   let { products, numPages, hasPrevPage, hasNextPage } = isPaginated
     ? await fakeGetProducts(page as number, pageSize as number, sort)
     : await fakeGetProducts(undefined, undefined, sort);
@@ -41,6 +41,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   }
 
   return json({
+    sort,
     page,
     pageSize,
     products,
@@ -76,54 +77,82 @@ function PaginationBar() {
 
   return (
     <div className="flex pt-2 text-center text-sm">
-      <div className="grow">
-        {data.prevPageHref ? (
-          <Link to={data.prevPageHref} className="grow underline">
-            ⬅️ Previous
-          </Link>
-        ) : (
-          <span className="grow opacity-50">⬅️ Previous Page</span>
-        )}
-      </div>
+      <PaginationLink href={data.prevPageHref}>⬅️ Previous</PaginationLink>
 
       <div className="grow">
         Page {data.page} of {data.numPages}
       </div>
 
-      <div className="grow">
-        {data.nextPageHref ? (
-          <Link to={data.nextPageHref} className="grow underline">
-            Next ➡️
-          </Link>
-        ) : (
-          <span className="grow opacity-50">Next Page ➡️</span>
-        )}
-      </div>
+      <PaginationLink href={data.nextPageHref}>Next ➡️</PaginationLink>
+    </div>
+  );
+}
+
+function PaginationLink({
+  href,
+  children,
+}: {
+  href: string | null;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="grow">
+      {href ? (
+        <Link to={href} className="grow underline">
+          {children}
+        </Link>
+      ) : (
+        <span className="grow opacity-50">{children}</span>
+      )}
     </div>
   );
 }
 
 function PageSizeDropdown() {
   let data = useLoaderData<typeof loader>();
-  let navigate = useNavigate();
+  let submit = useSubmit();
 
   return (
-    <div className="flex text-center">
+    <Form className="flex text-center">
       <label className="grow">
         <span>Products per page:</span>{" "}
         <select
+          name="page-size"
           defaultValue={data.pageSize}
           className="rounded-lg border p-1 text-sm"
-          onChange={(e) => navigate(`?page-size=${e.target.value}`)}
+          onChange={(e) => submit(e.target.form)}
         >
-          {["4", "8", "All"].map((value) => (
+          {["All", "4", "8"].map((value) => (
             <option key={value} value={value}>
               {value}
             </option>
           ))}
         </select>
       </label>
-    </div>
+      <label className="grow">
+        <span>Sort order:</span>{" "}
+        <select
+          name="sort"
+          defaultValue={data.sort}
+          className="rounded-lg border p-1 text-sm"
+          onChange={(e) => submit(e.target.form)}
+        >
+          {["None", "Ascending", "Descending"].map((value) => (
+            <option key={value} value={value}>
+              {value}
+            </option>
+          ))}
+        </select>
+      </label>
+      <noscript>
+        <button
+          type="submit"
+          className="ml-1 rounded bg-gray-200 p-1 pl-2 pr-2 text-sm hover:bg-gray-300"
+        >
+          Apply
+        </button>
+      </noscript>
+    </Form>
   );
 }
 
