@@ -28,7 +28,7 @@ gh repo clone brophdawg11/remix-fundamentals-workshop
 
 ```sh
 cd remix-fundamentals-workshop
-npm ci
+npm install
 ```
 
 ### 👉 Run an app
