@@ -1,10 +1,22 @@
 import { json, type LoaderFunctionArgs } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import {
+  isRouteErrorResponse,
+  useLoaderData,
+  useRouteError,
+} from "@remix-run/react";
 
 import { type Product, fakeGetProduct } from "../data/api";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   let product = await fakeGetProduct(params.slug!);
+
+  if (!product) {
+    throw new Response(`No product found for slug: ${params.slug}`, {
+      status: 404,
+      statusText: "Not Found",
+    });
+  }
+
   return json({ product });
 }
 
@@ -19,6 +31,32 @@ export default function Component() {
       </div>
     </div>
   );
+}
+
+export function ErrorBoundary() {
+  let error = useRouteError();
+
+  if (isRouteErrorResponse(error)) {
+    return (
+      <div className="text-center">
+        <h1 className="mt-10 text-xl">
+          {error.status} {error.statusText}
+        </h1>
+        <p className="mt-2 text-sm">{error.data}</p>
+      </div>
+    );
+  }
+
+  if (error instanceof Error) {
+    return (
+      <div className="text-center">
+        <h1 className="mt-10 text-xl">Unknown Server Error</h1>
+        <p className="mt-2 text-sm">{error.message}</p>
+      </div>
+    );
+  }
+
+  return <h1 className="mt-10 text-center text-xl">Unknown Server Error</h1>;
 }
 
 function ProductImage({ product }: { product: Product }) {
