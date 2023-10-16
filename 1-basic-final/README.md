@@ -14,18 +14,18 @@ npm run dev
 
 ## Steps
 
-1. [ ] Add a `<title>` element and a `<meta>` tag of your choosing to your Remix app from the `root.tsx` route ([hint](https://remix.run/docs/route/meta))
-2. [ ] Load the tailwind styles from `app/styles/tailwind.css` using a `<link>` tag in `root.tsx` ([hint](https://remix.run/docs/route/links))
+1. Add a `<title>` element and a `<meta>` tag of your choosing to your Remix app from the `root.tsx` route ([hint](https://remix.run/docs/route/meta))
+2. Load the tailwind styles from `app/styles/tailwind.css` using a `<link>` tag in `root.tsx` ([hint](https://remix.run/docs/route/links))
    - This should apply a light grey background to the page and center the `Welcome to Remix Fundamentals` heading
 3. Add two `<Link>`'s to your `root.tsx` route that link to `/` and `/about` ([hint](https://remix.run/docs/en/main/components/link))
    - These links will generate a 404 when clicked initially
-4. [ ] Add route files for the 2 links above ([hint](https://remix.run/docs/en/main/discussion/routes))
-5. [ ] Add page-specific `<title>`'s to your `/` and `/about` routes
+4. Add route files for the 2 links above ([hint](https://remix.run/docs/en/main/discussion/routes))
+5. Add page-specific `<title>`'s to your `/` and `/about` routes
 
 ### Extra Credit
 
-1. [ ] Customize the Remix server handler and add a custom `X-Remix: Rocks!` header to the HTML document response. ([hint](https://remix.run/docs/en/main/file-conventions/entry.server))
-2. [ ] Extract the links in your `root.tsx` file into a `<Header>` component in a pathless layout and nest your `/` and `/about` pages inside the layout ([hint](https://remix.run/docs/en/main/file-conventions/routes#nested-layouts-without-nested-urls))
+1. Customize the Remix server handler and add a custom `X-Remix: Rocks!` header to the HTML document response. ([hint](https://remix.run/docs/en/main/file-conventions/entry.server))
+2. Extract the links in your `root.tsx` file into a `<Header>` component in a pathless layout and nest your `/` and `/about` pages inside the layout ([hint](https://remix.run/docs/en/main/file-conventions/routes#nested-layouts-without-nested-urls))
    - The URLs should remain `/` and `/about`
    - This will require re-naming your current route files
 

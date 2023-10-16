@@ -18,12 +18,12 @@ npm run dev
 
 ## Steps
 
-1. [ ] Let's make our error UI a bit more user-friendly by adding an `ErrorBoundary` in `app/root.tsx` to display the `error.message` ([hint](https://remix.run/docs/en/main/route/error-boundary), [hint](https://remix.run/docs/en/main/hooks/use-route-error), [hint](https://remix.run/docs/en/main/guides/errors))
+1. Let's make our error UI a bit more user-friendly by adding an `ErrorBoundary` in `app/root.tsx` to display the `error.message` ([hint](https://remix.run/docs/en/main/route/error-boundary), [hint](https://remix.run/docs/en/main/hooks/use-route-error), [hint](https://remix.run/docs/en/main/guides/errors))
    - Remix automatically catches any errors thrown from `loader` or `action` functions and renders them into the `ErrorBoundary`. Neat!
-2. [ ] It's a bummer we lose the header when we render the `ErrorBoundary`, let's see if we can update our app to render it at the `shop.$slug.tsx` route instead of the root route ([hint](https://remix.run/docs/en/main/guides/errors#nested-error-boundaries))
+2. It's a bummer we lose the header when we render the `ErrorBoundary`, let's see if we can update our app to render it at the `shop.$slug.tsx` route instead of the root route ([hint](https://remix.run/docs/en/main/guides/errors#nested-error-boundaries))
 3. What happens if we load an invalid slug, such as http://localhost:3000/shop/junk? We get an `undefined` `product` returned from our `loader`, and we throw an error from our `Component` which _also_ gets caught by our `ErrorBoundary`
    - Remix also automatically catches any render errors renders them into the `ErrorBoundary`!
-4. [ ] We don't want a render-error for an invalid slug though, we should probably be returning a [404 Response](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404). Let's update the loader to detect when a product is not found for the given slug and return a 404 Response instead - and display a message slug as "No product found for slug: {slug}" in our `ErrorBoundary` ([hint](https://remix.run/docs/en/main/guides/not-found), [hint](https://remix.run/docs/en/main/utils/is-route-error-response))
+4. We don't want a render-error for an invalid slug though, we should probably be returning a [404 Response](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404). Let's update the loader to detect when a product is not found for the given slug and return a 404 Response instead - and display a message slug as "No product found for slug: {slug}" in our `ErrorBoundary` ([hint](https://remix.run/docs/en/main/guides/not-found), [hint](https://remix.run/docs/en/main/utils/is-route-error-response))
 
 ### Extra Credit
 
