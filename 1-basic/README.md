@@ -22,7 +22,7 @@ npm run dev
 4. Add route files for the 2 links above ([hint](https://remix.run/docs/en/main/discussion/routes))
 5. Add page-specific `<title>`'s to your `/` and `/about` routes
 
-### Extra Credit
+## Extra Credit
 
 1. Customize the Remix server handler and add a custom `X-Remix: Rocks!` header to the HTML document response. ([hint](https://remix.run/docs/en/main/file-conventions/entry.server))
 2. Extract the links in your `root.tsx` file into a `<Header>` component in a pathless layout and nest your `/` and `/about` pages inside the layout ([hint](https://remix.run/docs/en/main/file-conventions/routes#nested-layouts-without-nested-urls))

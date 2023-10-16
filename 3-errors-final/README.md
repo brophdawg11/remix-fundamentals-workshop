@@ -25,7 +25,7 @@ npm run dev
    - Remix also automatically catches any render errors renders them into the `ErrorBoundary`!
 4. We don't want a render-error for an invalid slug though, we should probably be returning a [404 Response](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404). Let's update the loader to detect when a product is not found for the given slug and return a 404 Response instead - and display a message slug as "No product found for slug: {slug}" in our `ErrorBoundary` ([hint](https://remix.run/docs/en/main/guides/not-found), [hint](https://remix.run/docs/en/main/utils/is-route-error-response))
 
-### Extra Credit
+## Extra Credit
 
 1. What if we want to log our errors to the server-console in a custom manner, or send them to a third party service such as Sentry or BugSnag? Go ahead and run `npx remix reveal` to gain the ability to customize your `entry.server.tsx` and look into adding custom logging for uncaught SSR errors ([hint](https://remix.run/docs/en/main/file-conventions/entry.server#handleerror))
 

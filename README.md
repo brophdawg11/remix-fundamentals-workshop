@@ -1,4 +1,4 @@
-# Remix Fundamentals Workshop - Connect.Tech 2023
+# Remix Fundamentals Workshop
 
 Welcome to the workshop repo! Let's get you set up.
 
@@ -31,24 +31,30 @@ cd remix-fundamentals-workshop
 npm install
 ```
 
+## Examples
+
+This workshop contains an ordered set of examples we'll work through (ie., `1-basic`, `2-data`, etc.). Each example is a self-contained Remix application. Each example also contains a `-final` directory that shows the ending state for the exercise - feel free to peek at these if you get stuck!
+
 ### 👉 Run an app
+
+This repository uses npm workspaces, so you can run an individual app using the `-w` flag, which is the same as running `npm run dev` from that directory:
 
 ```sh
 # from the root of this repository
 npm run dev -w 1-basic
 ```
 
-This project uses npm workspaces, so that command is the same as changing into the "1-basic" directory and running `npm run dev` there.
+Or you can run the apps directly from their directories:
 
 ```sh
 cd 1-basic
 npm run dev
 ```
 
-### 👉 Check the README for each topic
+### 👉 Check the README for each example
 
-Each topic will have a list of instructions, links, and tips for completing the work. The code in `app/` is your starting point. We'll briefly review the starting point, discuss the instructions, and then you'll have some time to work on implementing the steps (solo, or pair up with a buddy!).
+Each example will have a list of instructions, links, and tips for completing the work. The code in `app/` is your starting point. We'll briefly review the starting/ending points, discuss the instructions, and then you'll have some time to work on implementing the steps (solo, or pair up with a buddy!).
 
-The instructions and code is light _by design_! The goal of the workshop is not just to simply give you the answers, but to get you comfortable using the Remix and MDN docs to help you figure out the path forward (you should get much better recall in this manner 😉).
+The instructions and provided code is minimal _by design_! The goal of the workshop is not just to simply give you the answers, but to get you comfortable using the Remix and MDN docs to help you figure out the path forward (you should get much better recall in this manner 😉).
 
 If you get stuck, there is a working version of each exercise in a `-final` workspace, so you can run that to see the final state (`npm run dev -w 1-basic-final`) or peek at the code if you need a hint.

@@ -29,7 +29,7 @@ npm run dev
    - There is a `<FullPageSpinner/>` component in the root route that you can leverage, or feel free to make your own!
    - Throttle your network connection to Slow 3G to slow down the pagination/sorting operations
 
-### Extra Credit
+## Extra Credit
 
 1. Can you enable a dropdown to let the uer choose the page size (4, 8, or "All")?
 2. Do your sorting and pagination options work with JS Disabled?
