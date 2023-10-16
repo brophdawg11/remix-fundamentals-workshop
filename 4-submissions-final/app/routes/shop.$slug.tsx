@@ -1,4 +1,4 @@
-import { json, type LoaderFunctionArgs } from "@remix-run/node";
+import { json, MetaFunction, type LoaderFunctionArgs } from "@remix-run/node";
 import {
   isRouteErrorResponse,
   useLoaderData,
@@ -7,6 +7,14 @@ import {
 
 import { fakeGetProduct, type Product } from "../data/api";
 import { requireSession } from "../session.server";
+
+export const meta: MetaFunction<typeof loader> = ({ data }) => {
+  return [
+    {
+      title: data ? data.product.title : "Product Page",
+    },
+  ];
+};
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   await requireSession(request);

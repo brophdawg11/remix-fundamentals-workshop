@@ -1,7 +1,15 @@
-import { json, type LoaderFunctionArgs } from "@remix-run/node";
+import { json, MetaFunction, type LoaderFunctionArgs } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 
 import { type Product, fakeGetProduct } from "../data/api";
+
+export const meta: MetaFunction<typeof loader> = ({ data }) => {
+  return [
+    {
+      title: data ? data.product.title : "Product Page",
+    },
+  ];
+};
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   let product = await fakeGetProduct(params.slug!);
