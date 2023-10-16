@@ -16,7 +16,13 @@ npm run dev
 
 ## Steps
 
-In `session.server.tsx`, we provide a Remix session instance you can use to track if a user is logged in via an email address ([Sessions](https://remix.run/docs/utils/sessions)). The session will be stored in a `__session` cookie in the browser. If you need to inspect the cookie contents for debugging, you can do so with `atob(decodeURIComponent("cookie-value"))`
+In `session.server.tsx`, we provide a Remix session instance you can use to track if a user is logged in via an email address ([Sessions](https://remix.run/docs/utils/sessions)). The session will be stored in a `__session` cookie in the browser.
+
+If you need to inspect the cookie contents for debugging, you can do so with:
+
+```js
+atob(decodeURIComponent("cookie-value".split(".")[0]));
+```
 
 1. Let's start in `routes/login.tsx` - create a simple `<Form method="post">` with 2 `<input>`'s (`emailAddress` and `password`) and a submit button to log in ([hint](https://remix.run/docs/en/main/components/form), [hint](https://remix.run/docs/en/main/guides/form-validation))
 2. Oh no! I see `405 Method Not Allowed` when I submit the form! We need to add an `action` to our login route to handle the form POST submission ([hint](https://remix.run/docs/en/main/route/action))

@@ -13,6 +13,7 @@ const { getSession, commitSession, destroySession } =
       httpOnly: true,
       maxAge: 3600, // 1 hour
       secure: true,
+      secrets: ["s3crets"],
     },
   });
 

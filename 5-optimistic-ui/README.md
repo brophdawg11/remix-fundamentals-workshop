@@ -25,6 +25,5 @@ npm run dev
 
 1. Make selected variant change the image on the left
 2. Add query param for selected variant for shareable URLs
-3. Add quantity dropdown and ensure this works for optimistic UI
 
 ## Notes

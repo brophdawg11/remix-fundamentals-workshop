@@ -13,7 +13,6 @@ import {
   useRouteError,
   useSearchParams,
 } from "@remix-run/react";
-import React from "react";
 
 import { fakeGetProduct, type Product } from "../data/api";
 import {
@@ -43,8 +42,6 @@ export async function action({ request }: ActionFunctionArgs) {
 
   addItemToCartInSession(session, variantId, Number(quantity));
 
-  session.flash("flashMessage", "Item added to bag!");
-
   // 💡 Uncomment to slowdown your add to cart for the Pending/Optimistic UI work
   // await sleep(1000)
 
@@ -56,8 +53,6 @@ export async function action({ request }: ActionFunctionArgs) {
 }
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
-  let session = await requireSession(request);
-
   let product = await fakeGetProduct(params.slug!);
 
   if (!product) {
@@ -67,17 +62,9 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
     });
   }
 
-  return json(
-    {
-      product,
-      flashMessage: session.get("flashMessage"),
-    },
-    {
-      headers: {
-        "Set-Cookie": await commitSession(session),
-      },
-    },
-  );
+  return json({
+    product,
+  });
 }
 
 export default function Component() {
@@ -89,10 +76,7 @@ export default function Component() {
         <ProductImage product={data.product} />
         <div>
           <ProductInfo product={data.product} />
-          <AddToBagForm
-            product={data.product}
-            flashMessage={data.flashMessage}
-          />
+          <AddToBagForm product={data.product} />
         </div>
       </div>
     </div>
@@ -157,43 +141,7 @@ function ProductInfo({ product }: { product: Product }) {
   );
 }
 
-function AddToBagForm({
-  product,
-  flashMessage,
-}: {
-  product: Product;
-  flashMessage: string | undefined;
-}) {
-  let navigation = useNavigation();
-  let isAddingToBag = navigation.formData?.get("variantId") != null;
-  let [, setSearchParams] = useSearchParams();
-  let selectedVariant = useSelectedVariant(product);
-  let [localFlashMessage, setLocalFlashMessage] = React.useState<
-    string | undefined
-  >(flashMessage);
-  let idRef = React.useRef<number>(0);
-
-  React.useEffect(() => {
-    let id = idRef.current;
-    if (navigation.state === "idle" && flashMessage) {
-      clearTimeout(id);
-      setLocalFlashMessage(flashMessage);
-      idRef.current = setTimeout(
-        () => setLocalFlashMessage(undefined),
-        1000,
-      ) as unknown as number;
-    } else {
-      clearTimeout(id);
-    }
-  }, [flashMessage, navigation.state]);
-
-  function onVariantSelected(e: React.ChangeEvent<HTMLInputElement>) {
-    let variantId = e.currentTarget.value;
-    if (variantId != null && selectedVariant.id !== variantId) {
-      setSearchParams(new URLSearchParams({ variantId }), { replace: true });
-    }
-  }
-
+function AddToBagForm({ product }: { product: Product }) {
   return (
     <Form method="post">
       <fieldset className="mb-4">
@@ -203,10 +151,7 @@ function AddToBagForm({
               type="radio"
               name="variantId"
               value={v.id}
-              defaultChecked={
-                selectedVariant ? selectedVariant.id === v.id : idx === 0
-              }
-              onChange={onVariantSelected}
+              defaultChecked={idx === 0}
             />
             <img
               src={v.image.url}
@@ -231,18 +176,10 @@ function AddToBagForm({
       </label>
       <button
         type="submit"
-        disabled={isAddingToBag}
-        className={`ml-1 rounded bg-gray-200 p-1 pl-2 pr-2 text-sm hover:bg-gray-300 ${
-          isAddingToBag ? "opacity-50" : ""
-        }`}
+        className={`ml-1 rounded bg-gray-200 p-1 pl-2 pr-2 text-sm hover:bg-gray-300`}
       >
-        {isAddingToBag ? "Adding to Bag..." : "Add to Bag"}
+        Add to Bag
       </button>
-      {flashMessage ? (
-        <span className="ml-2 inline-block text-sm text-green-500">
-          {localFlashMessage}
-        </span>
-      ) : null}
     </Form>
   );
 }
