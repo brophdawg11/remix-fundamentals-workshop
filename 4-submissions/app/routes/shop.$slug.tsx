@@ -6,11 +6,8 @@ import {
 } from "@remix-run/react";
 
 import { fakeGetProduct, type Product } from "../data/api";
-import { requireSession } from "../session.server";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
-  await requireSession(request);
-
   let product = await fakeGetProduct(params.slug!);
 
   if (!product) {

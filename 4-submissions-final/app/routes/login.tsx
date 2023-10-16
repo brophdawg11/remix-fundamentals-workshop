@@ -1,22 +1,23 @@
 import { type ActionFunctionArgs, json, redirect } from "@remix-run/node";
-import { Form, useActionData } from "@remix-run/react";
+import { Form, useActionData, useLoaderData } from "@remix-run/react";
 
 import { validateEmailAndPassword } from "../data/api";
 import { commitSession, getSession } from "../session.server";
 
 export async function action({ request }: ActionFunctionArgs) {
   let fd = await request.formData();
-  let email = fd.get("email") as string;
+  let emailAddress = fd.get("emailAddress") as string;
   let password = fd.get("password") as string;
 
-  if (!(await validateEmailAndPassword(email, password))) {
+  if (!validateEmailAndPassword(emailAddress, password)) {
     return json({ error: "Invalid login attempt" });
   }
 
   let session = await getSession(request.headers.get("Cookie"));
-  session.set("userId", email);
+  session.set("emailAddress", emailAddress);
 
-  throw redirect("/", {
+  let redirectTo = fd.get("redirectTo") as string;
+  throw redirect(redirectTo || "/", {
     headers: {
       "Set-Cookie": await commitSession(session),
     },
@@ -25,36 +26,40 @@ export async function action({ request }: ActionFunctionArgs) {
 
 export async function loader({ request }: ActionFunctionArgs) {
   let session = await getSession(request.headers.get("Cookie"));
-  if (session.has("userId")) {
+  if (session.has("emailAddress")) {
     throw redirect("/");
   }
-  return null;
+  return {
+    redirectTo: new URL(request.url).searchParams.get("redirectTo") || "/",
+  };
 }
 
 export default function Component() {
+  let data = useLoaderData<typeof loader>();
   let actionData = useActionData<typeof action>();
   return (
     <Form method="post" className="m-auto mt-10 w-[50%]">
+      <input type="hidden" name="redirectTo" defaultValue={data.redirectTo} />
       <p className="mb-6 text-center">Please login to continue</p>
       <div className="mb-6">
         <label className="mb-2 block text-sm">
-          Email Address:
+          Email Address (anything will work):
           <input
-            name="email"
+            name="emailAddress"
             type="email"
+            defaultValue="test@test.com"
             className="block w-full rounded-lg border p-2.5"
-            required
           />
         </label>
       </div>
       <div className="mb-6">
         <label className="mb-2 block text-sm">
-          Password:
+          Password (hint: remixrocks):
           <input
             name="password"
             type="password"
+            defaultValue="remixrocks"
             className="block w-full rounded-lg border p-2.5"
-            required
           />
         </label>
       </div>
