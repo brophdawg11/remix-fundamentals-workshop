@@ -12,6 +12,9 @@ export async function fakeGetProducts(
   hasPrevPage: boolean;
   hasNextPage: boolean;
 }> {
+  // Uncomment to slow down your data loads
+  // await sleep();
+
   let products = getNormalizedProducts();
 
   if (sort === "Descending") {
@@ -40,21 +43,16 @@ export async function fakeGetProducts(
   };
 }
 
-function sortProducts(products: Product[], descending: boolean) {
-  let mutated = [...products];
-  return mutated.sort((_a, _b) => {
-    let a = parseFloat(_a.variants[0].price.amount);
-    let b = parseFloat(_b.variants[0].price.amount);
-    return (a < b ? -1 : a > b ? 1 : 0) * (descending ? -1 : 1);
-  });
-}
-
 export async function fakeGetProduct(
   slug: string,
 ): Promise<Product | undefined> {
+  // Uncomment to slow down your data loads
+  // await sleep();
+
   if (slug === "error") {
     throw new Error("Fake Network Error");
   }
+
   return getNormalizedProducts().find((p) => p.slug === slug);
 }
 
@@ -66,4 +64,18 @@ function getNormalizedProducts() {
       slug: p.node.title.replace(/[^a-z]/i, "-").toLowerCase(),
     };
   });
+}
+
+function sortProducts(products: Product[], descending: boolean) {
+  let mutated = [...products];
+  return mutated.sort((_a, _b) => {
+    let a = parseFloat(_a.variants[0].price.amount);
+    let b = parseFloat(_b.variants[0].price.amount);
+    return (a < b ? -1 : a > b ? 1 : 0) * (descending ? -1 : 1);
+  });
+}
+
+// Utility sleep function to slow down your data loads for Pending/Optimistic UI work
+function sleep(ms = 500) {
+  return new Promise((r) => setTimeout(r, ms));
 }

@@ -1,13 +1,21 @@
 import fakeProductsResponse from "./products";
 
+export type Product = ReturnType<typeof getNormalizedProducts>[0];
+
 export async function fakeGetProducts(
   page?: number,
   pageSize = 8,
   sort?: string | null,
-) {
-  let products = fakeProductsResponse.data.products.edges.map((p) => {
-    return { ...p.node, variants: p.node.variants.edges.map((v) => v.node) };
-  });
+): Promise<{
+  products: Product[];
+  numPages: number;
+  hasPrevPage: boolean;
+  hasNextPage: boolean;
+}> {
+  // Uncomment to slow down your data loads
+  // await sleep();
+
+  let products = getNormalizedProducts();
 
   if (sort === "Descending") {
     products = sortProducts(products, true);
@@ -35,9 +43,15 @@ export async function fakeGetProducts(
   };
 }
 
-export type Product = Awaited<
-  ReturnType<typeof fakeGetProducts>
->["products"][0];
+function getNormalizedProducts() {
+  return fakeProductsResponse.data.products.edges.map((p) => {
+    return {
+      ...p.node,
+      variants: p.node.variants.edges.map((v) => v.node),
+      slug: p.node.title.replace(/[^a-z]/i, "-").toLowerCase(),
+    };
+  });
+}
 
 function sortProducts(products: Product[], descending: boolean) {
   let mutated = [...products];
@@ -46,4 +60,9 @@ function sortProducts(products: Product[], descending: boolean) {
     let b = parseFloat(_b.variants[0].price.amount);
     return (a < b ? -1 : a > b ? 1 : 0) * (descending ? -1 : 1);
   });
+}
+
+// Utility sleep function to slow down your data loads for Pending/Optimistic UI work
+function sleep(ms = 500) {
+  return new Promise((r) => setTimeout(r, ms));
 }

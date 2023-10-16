@@ -1,6 +1,6 @@
 # Exercise 3 - Errors
 
-So far we've been pretty optimistic about our application code and data loading. But inevitably something's going to go wrong, so let's see how Remix let's you handle Errors in your application.
+So far we've been pretty optimistic about our application code and data loading. But inevitably something's going to go wrong, so let's see how Remix handles errors in your application.
 
 This builds on Example 2 and adds a "Product Detail Page" you can click to to see individual product details. But what happens if the product can't be loaded or you provide a product slug that doesn't exist? You'll be working primarily in `app/root.tsx` `app/routes/shop.$slug.tsx` in this exercise.
 
@@ -10,7 +10,7 @@ Let's see what happens when we force an error - our `fakeGetProduct()` call will
 
 ```sh
 # From the repository root
-npm run dev -w 3-error
+npm run dev -w 3-errors
 
 # From the 3-errors/ directory:
 npm run dev
@@ -29,7 +29,7 @@ npm run dev
 
 1. What if we want to log our errors to the server-console in a custom manner, or send them to a third party service such as Sentry or BugSnag? Go ahead and run `npx remix reveal` to gain the ability to customize your `entry.server.tsx` and look into adding custom logging for uncaught SSR errors ([hint](https://remix.run/docs/en/main/file-conventions/entry.server#handleerror))
 
-### Notes
+## Notes
 
 - Remix renders an `ErrorBoundary` any time a `loader`/`action`/`Component` _throws_ something. Usually that's an `Error` for something unexpected, but you can also throw `Response` instances for handled scenarios such as 4xx errors.
 - Notice the stack trace you see in the browser for `npm run dev`. In development mode, you can see where the server-side error came from for easy debugging. However, if you run `npm run build`/`npm run start` to run a production application - you'll see that Remix automatically strips any stack traces from server errors and sends a generic `error.message` so as not to leak any server-side sensitive information to the client.
