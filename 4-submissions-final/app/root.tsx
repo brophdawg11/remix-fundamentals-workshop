@@ -18,7 +18,7 @@ import {
 } from "@remix-run/react";
 import * as React from "react";
 
-import { CartItem, getSession } from "./session.server";
+import { getSession } from "./session.server";
 import styles from "./styles/tailwind.css";
 
 export const meta: MetaFunction = () => [
@@ -33,12 +33,6 @@ export async function loader({ request }: LoaderFunctionArgs) {
   let session = await getSession(request.headers.get("Cookie"));
   return json({
     emailAddress: session.get("emailAddress"),
-    numItems: session.has("cartItems")
-      ? (session.get("cartItems") as CartItem[]).reduce(
-          (acc, ci) => acc + ci.quantity,
-          0,
-        )
-      : 0,
   });
 }
 

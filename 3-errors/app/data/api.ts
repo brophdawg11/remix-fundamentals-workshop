@@ -61,7 +61,10 @@ function getNormalizedProducts() {
     return {
       ...p.node,
       variants: p.node.variants.edges.map((v) => v.node),
-      slug: p.node.title.replace(/[^a-z]/i, "-").toLowerCase(),
+      slug: p.node.title
+        .replace(/['"]/gi, "")
+        .replace(/[^a-z]/gi, "-")
+        .toLowerCase(),
     };
   });
 }
