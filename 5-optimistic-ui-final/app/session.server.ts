@@ -36,10 +36,15 @@ async function requireSession(request: Request) {
 export function addItemToCartInSession(
   session: Session<SessionData>,
   variantId: string,
-  quantity = 1,
+  quantity = 1
 ) {
   let cartItems = session.get("cartItems") || [];
-  cartItems?.push({ variantId, quantity: quantity });
+  let existingItem = cartItems.find((c) => c.variantId === variantId);
+  if (existingItem) {
+    existingItem.quantity += quantity;
+  } else {
+    cartItems.push({ variantId, quantity: quantity });
+  }
   session.set("cartItems", cartItems);
   return session;
 }

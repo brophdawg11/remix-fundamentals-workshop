@@ -42,7 +42,7 @@ export async function action({ request }: ActionFunctionArgs) {
 
   addItemToCartInSession(session, variantId, Number(quantity));
 
-  // 💡 Uncomment to slowdown your add to cart for the Pending/Optimistic UI work
+  // 💡 Step 1 - Uncomment to slowdown your add to cart for the Pending/Optimistic UI work
   // await sleep(1000)
 
   throw redirect(".", {
@@ -174,12 +174,16 @@ function AddToBagForm({ product }: { product: Product }) {
           ))}
         </select>
       </label>
+
+      {/* Step 2 - Update the button here to show a Pending UI */}
       <button
         type="submit"
         className={`ml-1 rounded bg-gray-200 p-1 pl-2 pr-2 text-sm hover:bg-gray-300`}
       >
         Add to Bag
       </button>
+
+      {/* Step 5 - Add your confirmation message here */}
     </Form>
   );
 }

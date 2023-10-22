@@ -31,7 +31,12 @@ export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }];
 
 export async function loader({ request }: LoaderFunctionArgs) {
   let session = await getSession(request.headers.get("Cookie"));
+
+  // Step 3 - Figure out the number of items in the cart here
+  let numItems = 0;
+
   return json({
+    numItems,
     emailAddress: session.get("emailAddress"),
   });
 }
@@ -69,6 +74,10 @@ export default function App() {
                     Logout
                   </button>
                   )
+                  <span className="ml-4 inline-block">
+                    {/* Step 4 - Make this value optimistic! */}
+                    🛍️ {data.numItems}
+                  </span>
                 </Form>
               ) : (
                 <Link to="/login" className="underline">
@@ -90,6 +99,8 @@ export default function App() {
 
 function DelayedSpinner() {
   let navigation = useNavigation();
+  // 💡 Step 2 - Update the logic in here so it doesn't show the spinner for
+  // Add to Bag navigations
   let [showSpinner, setShowSpinner] = React.useState(false);
   let idRef = React.useRef(0);
 

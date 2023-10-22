@@ -76,7 +76,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
       headers: {
         "Set-Cookie": await commitSession(session),
       },
-    },
+    }
   );
 }
 
@@ -180,7 +180,7 @@ function AddToBagForm({
       setLocalFlashMessage(flashMessage);
       idRef.current = setTimeout(
         () => setLocalFlashMessage(undefined),
-        1000,
+        1000
       ) as unknown as number;
     } else {
       clearTimeout(id);
