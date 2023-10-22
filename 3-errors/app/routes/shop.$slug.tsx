@@ -6,13 +6,16 @@ import { type Product, fakeGetProduct } from "../data/api";
 export const meta: MetaFunction<typeof loader> = ({ data }) => {
   return [
     {
-      title: data ? data.product.title : "Product Page",
+      title: data?.product?.title || "Product Page",
     },
   ];
 };
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   let product = await fakeGetProduct(params.slug!);
+
+  // 💡 Step 4 - You'll be adding some checks and a different return value here
+
   return json({ product });
 }
 
@@ -28,6 +31,8 @@ export default function Component() {
     </div>
   );
 }
+
+// 💡 Step 2 - You'll need to export a new function from this file
 
 function ProductImage({ product }: { product: Product }) {
   return (

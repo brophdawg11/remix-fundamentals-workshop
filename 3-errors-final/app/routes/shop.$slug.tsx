@@ -1,5 +1,6 @@
 import { json, MetaFunction, type LoaderFunctionArgs } from "@remix-run/node";
 import {
+  Link,
   isRouteErrorResponse,
   useLoaderData,
   useRouteError,
@@ -10,7 +11,7 @@ import { type Product, fakeGetProduct } from "../data/api";
 export const meta: MetaFunction<typeof loader> = ({ data }) => {
   return [
     {
-      title: data ? data.product.title : "Product Page",
+      title: data?.product?.title || "Product Page",
     },
   ];
 };
@@ -51,6 +52,11 @@ export function ErrorBoundary() {
           {error.status} {error.statusText}
         </h1>
         <p className="mt-2 text-sm">{error.data}</p>
+        <p className="mt-2 text-sm">
+          <Link to="/" className="text-blue-500 underline">
+            Let&apos;s get you back to some valid products
+          </Link>
+        </p>
       </div>
     );
   }
@@ -60,6 +66,11 @@ export function ErrorBoundary() {
       <div className="text-center">
         <h1 className="mt-10 text-xl">Unknown Server Error</h1>
         <p className="mt-2 text-sm">{error.message}</p>
+        <p className="mt-2 text-sm">
+          <Link to="/" className="text-blue-500 underline">
+            Start Over
+          </Link>
+        </p>
       </div>
     );
   }
