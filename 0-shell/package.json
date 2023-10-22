@@ -6,10 +6,11 @@
   "scripts": {
     "build": "remix build",
     "dev": "remix dev --manual",
-    "start": "remix-serve ./build/index.js"
+    "start": "remix-serve ./build/index.js",
+    "upgrade": "npx upgrade-remix@latest --package-manager npm"
   },
   "dependencies": {
-    "@remix-run/node": "^2.0.1",
+    "@remix-run/node": "2.0.1",
     "@remix-run/serve": "2.0.1",
     "isbot": "3.6.8",
     "react": "18.2.0",

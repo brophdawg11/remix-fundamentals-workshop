@@ -8,7 +8,8 @@
     "dev": "remix dev --manual",
     "lint": "eslint .",
     "start": "remix-serve ./build/index.js",
-    "typecheck": "tsc"
+    "typecheck": "tsc",
+    "upgrade": "npx upgrade-remix@latest --package-manager npm"
   },
   "dependencies": {
     "@remix-run/css-bundle": "2.0.1",
