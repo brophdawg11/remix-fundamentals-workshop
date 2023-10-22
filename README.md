@@ -58,3 +58,19 @@ Each example will have a list of instructions, links, and tips for completing th
 The instructions and provided code is minimal _by design_! The goal of the workshop is not just to simply give you the answers, but to get you comfortable using the Remix and MDN docs to help you figure out the path forward (you should get much better recall in this manner - [thanks Kent!](https://kentcdodds.com/blog/how-i-teach) 😉).
 
 If you get stuck, there is a working version of each exercise in a `-final` workspace, so you can run that to see the final state (`npm run dev -w 1-basic-final`) or peek at the code if you need a hint. The idea is not to end up with the same exact UX as the "final" state - but the same general functionality. So don't stress over styles, or matching the underlying implementation exactly.
+
+**Examples Topics:**
+
+1. Route configuration and document rendering
+2. Data loading
+3. Error handling
+4. Data submission
+5. Pending and Optimistic UI
+
+**Extra Discussion topics if time allows:**
+
+- Fetchers
+- Deferred Data
+- Revalidation Optimizations
+- Link Prefetching
+- View Transitions
