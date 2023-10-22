@@ -19,11 +19,11 @@ function Header() {
   ];
   return (
     <header className="border-b-2 p-4">
-      <p className="text-center">Header</p>
+      <h1 className="text-center text-3xl">Welcome to Remix Fundamentals</h1>
       <nav className="mt-2 flex justify-between pl-[25%] pr-[25%]">
         {links.map((l) => (
-          <div key={l.href} className="grow text-center">
-            <Link to={l.href} className="text-sm hover:underline">
+          <div key={l.href} className="grow text-center underline">
+            <Link to={l.href} className="text-sm">
               {l.title}
             </Link>
           </div>

@@ -1,4 +1,3 @@
-import { cssBundleHref } from "@remix-run/css-bundle";
 import type { LinksFunction, MetaFunction } from "@remix-run/node";
 import {
   Links,
@@ -29,7 +28,6 @@ export default function App() {
         <Links />
       </head>
       <body className="bg-gray-300">
-        <h1 className="text-center text-3xl">Welcome to Remix Fundamentals</h1>
         <Outlet />
         <ScrollRestoration />
         <Scripts />

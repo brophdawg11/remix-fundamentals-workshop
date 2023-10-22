@@ -24,16 +24,16 @@ npm run dev
 
 ## Extra Credit
 
-1. Customize the Remix server handler and add a custom `X-Remix: Rocks!` header to the HTML document response. ([hint](https://remix.run/docs/en/main/file-conventions/entry.server))
-   - You do not have this file in the example currently as Remix has a default implementation. You will need to run `npx remix reveal` to extract it.
-2. Extract the links in your `root.tsx` file into a `<Header>` component in a pathless layout and nest your `/` and `/about` pages inside the layout ([hint](https://remix.run/docs/en/main/file-conventions/routes#nested-layouts-without-nested-urls))
+1. Extract the links in your `root.tsx` file into a `<Header>` component in a pathless layout and nest your pages inside the layout ([hint](https://remix.run/docs/en/main/file-conventions/routes#nested-layouts-without-nested-urls))
    - The URLs should remain `/` and `/about`
    - This will require re-naming your current route files
+2. Run `npx remix reveal` and check out the 2 new files it creates (`app/entry.client.tsx` and `app/entry.server.tsx`).  These are the entry points for your server and client build.  Remiox has default implementations so you onoly need them in your repo if you need to customie the behavior.
+   - Try customizing the Remix server handler and add a custom `X-Remix: Rocks!` header to the HTML document response. ([hint](https://remix.run/docs/en/main/file-conventions/entry.server))
 
 ## Other Stuff
 
 - Make some changes to markup or styles while the app is running. Do you see them automatically reflected in the browser?
-  - HMR/HDR (Hot Module Revalidation and Hot Data Revalidation) work out of the box with `npm run dev` in Remix
+  - HMR/HDR (Hot Module Revalidation and Hot Data Revalidation) works out of the box with `npm run dev` in Remix
 - Check out what happens if you disable Javascript in your browser (or remove the [`<Scripts>`](https://remix.run/docs/en/main/components/scripts)'s component)? Does your app still work the same?
   - Remix is built to work without/before Javascript 🤯
 - Make your index route taller than the viewport and add a link to `/about` way down at the bottom. Scroll down, click the link, and then click the back button. did you end up at the same scroll position on the index route?
