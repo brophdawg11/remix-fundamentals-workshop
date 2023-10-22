@@ -13,13 +13,17 @@ export async function loader({ request }: LoaderFunctionArgs) {
     searchParams.has("page-size") && searchParams.get("page-size") !== "All"
       ? parseInt(searchParams.get("page-size") || "8", 10)
       : "All";
-
   let isPaginated = pageSize !== "All";
+
+  // Sorting
   let sort = searchParams.get("sort") || "None";
+
+  // "Fetch" products
   let { products, numPages, hasPrevPage, hasNextPage } = isPaginated
     ? await fakeGetProducts(page as number, pageSize as number, sort)
     : await fakeGetProducts(undefined, undefined, sort);
 
+  // Generate prev/next links
   let prevPageHref = null;
   let nextPageHref = null;
   if (isPaginated) {

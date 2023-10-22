@@ -38,7 +38,7 @@ export default function App() {
   );
 }
 
-// 💡 You can show this pre-constructed spinner component during navigations
+// 💡 Step 4 - You can show this pre-constructed spinner component during navigations
 function FullPageSpinner() {
   return (
     <div className="absolute left-0 top-0 h-full w-full items-center bg-white opacity-70">

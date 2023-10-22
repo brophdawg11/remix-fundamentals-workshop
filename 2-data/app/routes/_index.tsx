@@ -4,7 +4,10 @@ import * as React from "react";
 import { type Product, fakeGetProducts } from "../data/api";
 
 export async function loader({ request }: LoaderFunctionArgs) {
-  // 💡 Step 1 - let's return and render some products via fakeGetProducts!
+  // 💡 Step 1 - let's return and render some products via fakeGetProducts()!
+
+  // 💡 Steps 2 and 3 - You'll be doing most of your logic in here for those steps
+
   return json({ products: [] });
 }
 
@@ -18,7 +21,7 @@ export default function Component() {
 
         <ProductGrid>
           {/*
-            💡 Step 1 - render products from your loader in here with:
+            💡 Step 1 - render the products returned from your loader in here with:
                  <ProductCard product={product} />
           */}
         </ProductGrid>
