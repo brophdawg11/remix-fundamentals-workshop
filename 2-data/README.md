@@ -45,4 +45,6 @@ npm run dev
 ## Notes
 
 - Loaders are _**powerful**_. By leaning into the URL as your "source of truth" you can usually eliminate most (if not all) of the scenarios you may have had to reach for `useState`/`useEffect` previously. A large majority of those use-cases in the SPA world were to sync your UI with the URL - Remix handles all of that for you via route loaders.
+- Your loaders _only_ run on the server, do you can access datbases, the filesystem, etc. without needing to go through a special API endpoint. Each loader is essentially an API for that specific route.
+  - Remix often makes a good fit for the [Backend for your Frontend](https://remix.run/docs/en/main/guides/bff) architecture - playing along with a set of battle tested APIs your application may already have.
 - When you do things via the URL and standard links/forms - your app will also almost always "just work" without/before JavaScript is loaded.
