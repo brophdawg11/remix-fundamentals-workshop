@@ -21,7 +21,7 @@ npm run dev
    - Before you reach for `useState`, try to do your sorting on the server in the `loader` to avoiding shipping sorting logic to the client bundle ([hint](https://remix.run/docs/en/main/guides/data-loading#url-search-params), [hint](https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams))
    - `fakeGetProducts` accepts a page number as the first parameter and a page size as the second parameter, and returns pagination data you can destructure off the result
      - For example, to load page 2 using 4 products per page:
-     - `let { products, totalPages, hasPrevPage, hasNextPage } = await fakeGetProducts(2, 4)`
+     - `let { products, numPages, hasPrevPage, hasNextPage } = await fakeGetProducts(2, 4)`
    - Provide the user "Previous Page" and "Next Page" links
    - Provide a "Page X of Y" indicator so the user can orient themselves
 3. Add a sorting option to sort products by Ascending or Descending price (again using `URLSearchParams` in your `loader`)
