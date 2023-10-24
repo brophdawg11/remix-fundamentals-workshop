@@ -32,6 +32,9 @@ npm run dev
 
 ## Other Stuff
 
+- Navigate between the two routes and keep an eye on the dev tools. Notice how the JS fields for the route only load when you load that page?
+  - Remix automatically code-splits at the route level to keep you initial JS bundles small and your app speedy
+  - This also includes any CSS files imported in your route and rendered via `links`!
 - Make some changes to markup or styles while the app is running. Do you see them automatically reflected in the browser?
   - HMR/HDR (Hot Module Revalidation and Hot Data Revalidation) works out of the box with `npm run dev` in Remix
 - Check out what happens if you disable Javascript in your browser (or remove the [`<Scripts>`](https://remix.run/docs/en/main/components/scripts)'s component)? Does your app still work the same?

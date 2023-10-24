@@ -44,16 +44,23 @@ export async function loader({ request }: LoaderFunctionArgs) {
     }
   }
 
-  return json({
-    sort,
-    page,
-    pageSize,
-    products,
-    isPaginated,
-    numPages,
-    prevPageHref,
-    nextPageHref,
-  });
+  return json(
+    {
+      sort,
+      page,
+      pageSize,
+      products,
+      isPaginated,
+      numPages,
+      prevPageHref,
+      nextPageHref,
+    },
+    {
+      headers: {
+        "Cache-Control": "public, max-age=300",
+      },
+    }
+  );
 }
 
 export default function Component() {

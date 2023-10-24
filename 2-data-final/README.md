@@ -35,11 +35,12 @@ npm run dev
 
 ## Extra Credit
 
+1. Try adding a `Cache-Control` header to your `json` response so you can cache loader data request on subsequent navigations to the same page ([hint](https://remix.run/docs/en/main/utils/json), [hint](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control))
 1. Can you enable a dropdown to let the user choose the page size (4, 8, or "All")?
-2. Do your sorting and pagination options work with JS disabled?
+1. Do your sorting and pagination options work with JS disabled?
    - This is easiest to do with links, but bonus points if you can do this with a `<select>`/`<Form>`
    - We need to show a submit button when JS is unavailable - but can we hide the `<select>` and submit on selection when JS is enabled?
-3. Do you see a flicker of the loading spinner on non-throttled navigations? Can you avoid this and only show it when the navigation takes >250ms?
+1. Do you see a flicker of the loading spinner on non-throttled navigations? Can you avoid this and only show it when the navigation takes >250ms?
 
 ## Notes
 
