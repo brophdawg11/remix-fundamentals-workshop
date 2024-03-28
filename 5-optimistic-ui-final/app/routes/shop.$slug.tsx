@@ -8,6 +8,7 @@ import {
 import {
   Form,
   isRouteErrorResponse,
+  ShouldRevalidateFunctionArgs,
   useLoaderData,
   useNavigation,
   useRouteError,
@@ -78,6 +79,16 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
       },
     }
   );
+}
+
+export function shouldRevalidate({
+  defaultShouldRevalidate,
+  formData,
+}: ShouldRevalidateFunctionArgs) {
+  if (!formData) {
+    return false;
+  }
+  return defaultShouldRevalidate;
 }
 
 export default function Component() {
@@ -190,12 +201,15 @@ function AddToBagForm({
   function onVariantSelected(e: React.ChangeEvent<HTMLInputElement>) {
     let variantId = e.currentTarget.value;
     if (variantId != null && selectedVariant.id !== variantId) {
-      setSearchParams(new URLSearchParams({ variantId }), { replace: true });
+      setSearchParams(new URLSearchParams({ variantId }), {
+        replace: true,
+        preventScrollReset: true,
+      });
     }
   }
 
   return (
-    <Form method="post">
+    <Form method="post" preventScrollReset>
       <fieldset className="mb-4">
         {product.variants.map((v, idx) => (
           <label key={v.id} className="mr-4">

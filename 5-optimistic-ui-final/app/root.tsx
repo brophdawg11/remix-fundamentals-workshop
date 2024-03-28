@@ -13,6 +13,7 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  ShouldRevalidateFunctionArgs,
   useLoaderData,
   useNavigation,
 } from "@remix-run/react";
@@ -37,6 +38,16 @@ export async function loader({ request }: LoaderFunctionArgs) {
     emailAddress: session.get("emailAddress"),
     numItems,
   });
+}
+
+export function shouldRevalidate({
+  defaultShouldRevalidate,
+  formData,
+}: ShouldRevalidateFunctionArgs) {
+  if (!formData) {
+    return false;
+  }
+  return defaultShouldRevalidate;
 }
 
 export default function App() {
